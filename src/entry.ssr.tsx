@@ -29,5 +29,11 @@ export default function (opts: RenderToStreamOptions) {
     serverData: {
       ...opts.serverData,
     },
+    prefetchStrategy: {
+      implementation: {
+        maxSimultaneousPreloads: 50,
+        maxPreloads: 0,
+      },
+    },
   });
 }
