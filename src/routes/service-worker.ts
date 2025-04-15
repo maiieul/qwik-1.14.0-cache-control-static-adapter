@@ -11,10 +11,6 @@ import { setupServiceWorker } from "@builder.io/qwik-city/service-worker";
 
 setupServiceWorker();
 
-addEventListener("install", () => self.skipWaiting());
-
-addEventListener("activate", () => self.clients.claim());
-
 const putInCache = async (request: RequestInfo | URL, response: Response) => {
   const cache = await caches.open("NAME");
   await cache.put(request, response);
@@ -29,5 +25,9 @@ const cacheFirst = async (request: RequestInfo | URL, event: FetchEvent) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(cacheFirst(event.request, event));
 });
+
+addEventListener("install", () => self.skipWaiting());
+
+addEventListener("activate", () => self.clients.claim());
 
 declare const self: ServiceWorkerGlobalScope;
